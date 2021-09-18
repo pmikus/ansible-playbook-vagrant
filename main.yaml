@@ -1,0 +1,50 @@
+---
+# file: main.yaml
+
+- hosts: vagrant
+  connection: local
+  become: yes
+  become_user: root
+  gather_facts: false
+
+  pre_tasks:
+    - name: Gathering Facts
+      gather_facts:
+      tags:
+        - always
+  roles:
+    - role: ansible-role-docker
+      tags: docker
+    - role: ansible-role-nomad
+      tags: nomad
+    - role: ansible-role-consul
+      tags: consul
+
+  tasks:
+    - name: Inst - package dependencies
+      package:
+        name: "{{ item }}"
+        state: "present"
+      loop:
+        - "yamllint"
+        - "python3-docker"
+        - "bridge-utils"
+      tags:
+        - install-apt-deps
+
+    - name: Inst - pip dependencies
+      pip:
+        name: "{{ item }}"
+      loop:
+        - "docker-compose"
+      tags:
+        - install-pip-deps
+
+    - name: Inst - Update And Upgrade APT Packages
+      become: true
+      apt:
+        upgrade: yes
+        update_cache: yes
+        cache_valid_time: 3600
+      tags:
+        - install-apt-update

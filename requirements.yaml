@@ -1,0 +1,12 @@
+---
+# file: requirements.yaml
+
+roles:
+  - src: "geerlingguy.docker"
+    source: "https://galaxy.ansible.com"
+  - name: "pmikus.openrazer"
+    source: "https://galaxy.ansible.com"
+  - name: "pmikus.polychromatic"
+    source: "https://galaxy.ansible.com"
+  - name: "pmikus.darktable"
+    source: "https://galaxy.ansible.com"

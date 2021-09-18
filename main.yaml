@@ -3,7 +3,7 @@
 
 - hosts: vagrant
   connection: local
-  become: yes
+  become: true
   become_user: root
   gather_facts: false
 
@@ -13,24 +13,25 @@
       tags:
         - always
   roles:
-    - role: ansible-role-docker
+    - role: geerlingguy.docker
       tags: docker
-    - role: ansible-role-nomad
+    - role: pmikus.nomad
       tags: nomad
-    - role: ansible-role-consul
+    - role: pmikus.consul
       tags: consul
 
   tasks:
     - name: Inst - package dependencies
-      package:
+      apt:
         name: "{{ item }}"
         state: "present"
+        upgrade: true
+        update_cache: true
+        cache_valid_time: 3600
       loop:
-        - "yamllint"
-        - "python3-docker"
-        - "bridge-utils"
+        - "git"
       tags:
-        - install-apt-deps
+        - install-apt-update
 
     - name: Inst - pip dependencies
       pip:
@@ -39,12 +40,3 @@
         - "docker-compose"
       tags:
         - install-pip-deps
-
-    - name: Inst - Update And Upgrade APT Packages
-      become: true
-      apt:
-        upgrade: yes
-        update_cache: yes
-        cache_valid_time: 3600
-      tags:
-        - install-apt-update

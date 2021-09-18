@@ -4,9 +4,7 @@
 roles:
   - src: "geerlingguy.docker"
     source: "https://galaxy.ansible.com"
-  - name: "pmikus.openrazer"
+  - name: "pmikus.nomad"
     source: "https://galaxy.ansible.com"
-  - name: "pmikus.polychromatic"
-    source: "https://galaxy.ansible.com"
-  - name: "pmikus.darktable"
+  - name: "pmikus.consul"
     source: "https://galaxy.ansible.com"

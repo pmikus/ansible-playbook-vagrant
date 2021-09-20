@@ -19,6 +19,7 @@ nomad_options:
   docker.privileged.enabled: true
   docker.volumes.enabled: true
   driver.whitelist: "docker"
+nomad_service_mgr: "systemd"
 
 # Consul settings.
 consul_nomad_integration: true
@@ -33,3 +34,11 @@ consul_datacenter: "vagrant"
 consul_encrypt: "Y4T+5JGx1C3l2NFBBvkTWQ=="
 consul_node_name: "{{ hostname }}"
 consul_node_role: "both"
+consul_service_mgr: "systemd"
+
+# Docker settings.
+docker_daemon:
+  dns: ["172.17.0.1"]
+  dns-opts: []
+  dns-search: ["{{ansible_hostname}}"]
+docker_service_mgr: "systemd"

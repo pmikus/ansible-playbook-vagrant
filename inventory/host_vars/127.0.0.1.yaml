@@ -3,13 +3,17 @@
 
 # Nomad settings.
 nomad_certificates:
-  - src: "{{ file_nomad_ca_pem }}"
+  - src: "{{ vault_nomad_ca_pem }}"
     dest: "{{ nomad_ca_file }}"
-  - src: "{{ file_nomad_server_pem }}"
+  - src: "{{ vault_nomad_server_pem }}"
     dest: "{{ nomad_cert_file }}"
-  - src: "{{ file_nomad_server_key_pem }}"
+  - src: "{{ vault_nomad_server_key_pem }}"
     dest: "{{ nomad_key_file }}"
+nomad_tls_enable: true
+nomad_http: true
+nomad_rpc: true
 nomad_datacenter: "vagrant"
+nomad_bootstrap_expect: 1
 nomad_encrypt: "Y4T+5JGx1C3l2NFBBvkTWQ=="
 nomad_node_name: "{{ ansible_hostname }}"
 nomad_node_role: "both"
@@ -24,15 +28,16 @@ nomad_service_mgr: "systemd"
 # Consul settings.
 consul_nomad_integration: true
 consul_certificates:
-  - src: "{{ file_consul_ca_pem }}"
+  - src: "{{ vault_consul_agent_ca_pem }}"
     dest: "{{ consul_ca_file }}"
-  - src: "{{ file_consul_server_0_pem }}"
+  - src: "{{ vault_consul_server_0_pem }}"
     dest: "{{ consul_cert_file }}"
-  - src: "{{ file_consul_server_0_key_pem }}"
+  - src: "{{ vault_consul_server_0_key_pem }}"
     dest: "{{ consul_key_file }}"
 consul_datacenter: "vagrant"
+consul_bootstrap_expect: 1
 consul_encrypt: "Y4T+5JGx1C3l2NFBBvkTWQ=="
-consul_node_name: "{{ hostname }}"
+consul_node_name: "{{ ansible_hostname }}"
 consul_node_role: "both"
 consul_service_mgr: "systemd"
 

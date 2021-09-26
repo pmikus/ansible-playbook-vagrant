@@ -12,6 +12,9 @@
       gather_facts:
       tags:
         - always
+    - name: Setting ansible distribution to Ubuntu
+      set_fact: ansible_distribution="Ubuntu"
+
   roles:
     - role: pmikus.docker
       tags: docker
@@ -25,11 +28,13 @@
       apt:
         name: "{{ item }}"
         state: "present"
-        upgrade: true
         update_cache: true
         cache_valid_time: 3600
       loop:
         - "git"
+        - "golang-cfssl"
+        - "tmux"
+        - "vim"
       tags:
         - install-apt-update
 

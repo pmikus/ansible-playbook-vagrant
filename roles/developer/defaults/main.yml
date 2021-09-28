@@ -1,0 +1,31 @@
+---
+# file: roles/developer/defaults/main.yml
+
+packages: "{{ packages_base + packages_by_distro[ansible_distribution|lower] }}"
+
+packages_base:
+  - "curl"
+  - "git"
+  - "golang-cfssl"
+  - "mc"
+  - "openvpn"
+  - "powerline"
+  - "tmux"
+  - "tree"
+  - "vim"
+  - "wget"
+  - "xsel"
+  - "zsh"
+
+packages_by_distro:
+  ubuntu:
+    - "build-essential"
+    - "fontconfig"
+    - "python3-dev"
+    - "python3-pip"
+    - "python3-virtualenv"
+
+pip_packages:
+  - "docker-compose"
+  - "git-review"
+  - "git+git://github.com/Lokaltog/powerline"

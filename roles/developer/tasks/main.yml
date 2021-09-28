@@ -1,0 +1,96 @@
+---
+# file: roles/developer/tasks/main.yml
+
+- name: Inst - Dependencies
+  package:
+    name: "{{ packages | join(',') }}"
+    state: latest
+    update_cache: True
+  tags:
+    - install-dependencies
+
+- name: Inst - Distribution Dependencies
+  include_tasks: "{{ ansible_distribution|lower }}_{{ ansible_distribution_release }}.yml"
+  tags:
+    - install-dependencies
+
+- name: Inst - PIP Dependencies
+  pip:
+    name: "{{ item }}"
+    executable: "pip3"
+  loop: "{{ pip_packages }}"
+  tags:
+    - install-pip-deps
+
+- name: Inst - Oh-My-Ssh
+  become_user: "vagrant"
+  raw: 'sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"'
+  failed_when: False
+  tags:
+    - install-zsh
+
+- name: Conf - Tmux
+  become_user: "vagrant"
+  get_url:
+    url: "https://gist.githubusercontent.com/pmikus/bdb7a608f7abfcbc8854a6dcf2800716/raw/d685b7488d2cf9de4f67e196982fd72a724d90cd/.tmux.conf"
+    dest: "/home/vagrant/.tmux.conf"
+  tags:
+    - conf-tmux
+
+- name: Conf - Clone Tmux-tpm Repository
+  become_user: "vagrant"
+  git:
+    repo: "https://github.com/tmux-plugins/tpm"
+    dest: "/home/vagrant/.tmux/plugins/tpm"
+    accept_hostkey: True
+  tags:
+    - conf-tmux
+
+- name: Conf - Tmux Powerline
+  become_user: "vagrant"
+  git:
+    repo: "https://github.com/erikw/tmux-powerline.git"
+    dest: "/home/vagrant/.tmux/plugins/tmux-powerline"
+    accept_hostkey: True
+  tags:
+    - conf-tmux
+
+- name: Conf - Vim
+  become_user: "vagrant"
+  template:
+    src: "files/.vimrc"
+    dest: "/home/vagrant/"
+    owner: "vagrant"
+    group: "vagrant"
+    mode: "0644"
+  tags:
+    - conf-vim
+
+- name: Conf - VundleVim
+  become_user: "vagrant"
+  git:
+    repo: "https://github.com/VundleVim/Vundle.vim.git"
+    dest: "/home/vagrant/.vim/bundle/Vundle.vim"
+    accept_hostkey: True
+  tags:
+    - conf-vim
+
+- name: Inst - Nerd-fonts Repository
+  become_user: "vagrant"
+  git:
+    repo: "https://github.com/ryanoasis/nerd-fonts"
+    dest: "/home/vagrant/nerd-fonts"
+    depth: 1
+    accept_hostkey: True
+  tags:
+    - install-fonts
+
+- name: Inst - Nerd-fonts
+  raw: "/home/vagrant/nerd-fonts/install.sh"
+  tags:
+    - install-fonts
+
+- name: Inst - Nerd-fonts update font-cache
+  raw: "fc-cache -vf"
+  tags:
+    - install-fonts

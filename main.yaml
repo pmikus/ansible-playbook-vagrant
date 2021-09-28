@@ -22,26 +22,6 @@
       tags: nomad
     - role: pmikus.consul
       tags: consul
+    - role: developer
+      tags: developer
 
-  tasks:
-    - name: Inst - package dependencies
-      apt:
-        name: "{{ item }}"
-        state: "present"
-        update_cache: true
-        cache_valid_time: 3600
-      loop:
-        - "git"
-        - "golang-cfssl"
-        - "tmux"
-        - "vim"
-      tags:
-        - install-apt-update
-
-    - name: Inst - pip dependencies
-      pip:
-        name: "{{ item }}"
-      loop:
-        - "docker-compose"
-      tags:
-        - install-pip-deps

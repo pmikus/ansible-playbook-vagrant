@@ -34,6 +34,10 @@ consul_certificates:
     dest: "{{ consul_cert_file }}"
   - src: "{{ vault_consul_server_0_key_pem }}"
     dest: "{{ consul_key_file }}"
+consul_verify_incoming: true
+consul_verify_outgoing: true
+consul_vefify_server_hostname: false
+consul_allow_tls: true
 consul_datacenter: "vagrant"
 consul_bootstrap_expect: 1
 consul_encrypt: "Y4T+5JGx1C3l2NFBBvkTWQ=="

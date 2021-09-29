@@ -46,23 +46,20 @@
   tags:
     - conf-tmux
 
-- name: Conf - Tmux Powerline
-  become_user: "vagrant"
-  git:
-    repo: "https://github.com/erikw/tmux-powerline.git"
-    dest: "/home/vagrant/.tmux/plugins/tmux-powerline"
-    accept_hostkey: True
-  tags:
-    - conf-tmux
+#- name: Conf - Tmux Powerline
+#  become_user: "vagrant"
+#  git:
+#    repo: "https://github.com/erikw/tmux-powerline.git"
+#    dest: "/home/vagrant/.tmux/plugins/tmux-powerline"
+#    accept_hostkey: True
+#  tags:
+#    - conf-tmux
 
 - name: Conf - Vim
   become_user: "vagrant"
-  template:
-    src: "files/.vimrc"
-    dest: "/home/vagrant/"
-    owner: "vagrant"
-    group: "vagrant"
-    mode: "0644"
+  get_url:
+    url: "https://gist.githubusercontent.com/pmikus/cfc832cecb0464da3df311247dc174e3/raw/87f952cfa266b7f4e264a3e042ff5f301bf4d1e0/.vimrc"
+    dest: "/home/vagrant/.vimrc"
   tags:
     - conf-vim
 
@@ -75,22 +72,22 @@
   tags:
     - conf-vim
 
-- name: Inst - Nerd-fonts Repository
-  become_user: "vagrant"
-  git:
-    repo: "https://github.com/ryanoasis/nerd-fonts"
-    dest: "/home/vagrant/nerd-fonts"
-    depth: 1
-    accept_hostkey: True
-  tags:
-    - install-fonts
+#- name: Inst - Nerd-fonts Repository
+#  become_user: "vagrant"
+#  git:
+#    repo: "https://github.com/ryanoasis/nerd-fonts"
+#    dest: "/home/vagrant/nerd-fonts"
+#    depth: 1
+#    accept_hostkey: True
+#  tags:
+#    - install-fonts
 
-- name: Inst - Nerd-fonts
-  raw: "/home/vagrant/nerd-fonts/install.sh"
-  tags:
-    - install-fonts
+#- name: Inst - Nerd-fonts
+#  raw: "/home/vagrant/nerd-fonts/install.sh"
+#  tags:
+#    - install-fonts
 
-- name: Inst - Nerd-fonts update font-cache
-  raw: "fc-cache -vf"
-  tags:
-    - install-fonts
+#- name: Inst - Nerd-fonts update font-cache
+#  raw: "fc-cache -vf"
+#  tags:
+#    - install-fonts

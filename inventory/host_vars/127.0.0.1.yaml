@@ -2,6 +2,8 @@
 # file: host_vars/127.0.0.1.yaml
 
 # Nomad settings.
+nomad_cli_cert_file: "{{ nomad_ssl_dir }}/nomad_cli.pem"
+nomad_cli_key_file: "{{ nomad_ssl_dir }}/nomad_cli_key.pem"
 nomad_certificates:
   - src: "{{ vault_nomad_ca_pem }}"
     dest: "{{ nomad_ca_file }}"
@@ -9,6 +11,10 @@ nomad_certificates:
     dest: "{{ nomad_cert_file }}"
   - src: "{{ vault_nomad_server_key_pem }}"
     dest: "{{ nomad_key_file }}"
+  - src: "{{ vault_nomad_cli_pem }}"
+    dest: "{{ nomad_cli_cert_file }}"
+  - src: "{{ vault_nomad_cli_key_pem }}"
+    dest: "{{ nomad_cli_key_file }}"
 nomad_tls_enable: true
 nomad_http: true
 nomad_rpc: true
@@ -19,11 +25,15 @@ nomad_node_name: "{{ ansible_hostname }}"
 nomad_node_role: "both"
 nomad_node_class: "compute"
 nomad_options:
-  driver.raw_exec.enable: 1
-  docker.privileged.enabled: true
+  driver.raw_exec.enable: false
+  docker.privileged.enabled: false
   docker.volumes.enabled: true
   driver.whitelist: "docker"
 nomad_service_mgr: "systemd"
+nomad_volumes:
+  - name: "prod-volume-data1-1"
+    path: "/data"
+    read_only: false
 
 # Consul settings.
 consul_nomad_integration: true

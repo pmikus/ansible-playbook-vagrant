@@ -2,8 +2,8 @@
 # file: host_vars/127.0.0.1.yaml
 
 # Nomad settings.
-nomad_cli_cert_file: "{{ nomad_ssl_dir }}/nomad_cli.pem"
-nomad_cli_key_file: "{{ nomad_ssl_dir }}/nomad_cli_key.pem"
+nomad_cli_cert_file: "{{ nomad_ssl_dir }}/nomad-cli.pem"
+nomad_cli_key_file: "{{ nomad_ssl_dir }}/nomad-cli-key.pem"
 nomad_certificates:
   - src: "{{ vault_nomad_ca_pem }}"
     dest: "{{ nomad_ca_file }}"
@@ -31,8 +31,8 @@ nomad_options:
   driver.whitelist: "docker"
 nomad_service_mgr: "systemd"
 nomad_volumes:
-  - name: "prod-volume-data1-1"
-    path: "/data"
+  - name: "volume-glacier1-1"
+    path: "/glacier"
     read_only: false
 
 # Consul settings.

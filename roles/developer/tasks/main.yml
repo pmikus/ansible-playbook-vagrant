@@ -1,18 +1,16 @@
 ---
 # file: roles/developer/tasks/main.yml
 
-- name: Inst - Dependencies
-  package:
-    name: "{{ packages | join(',') }}"
-    state: latest
-    update_cache: True
+- name: Install Dependencies
+  apt:
+    name: "{{ packages | flatten(levels=1) }}"
+    state: "present"
+    cache_valid_time: 3600
+    install_recommends: false
+  when:
+    - ansible_distribution|lower == 'ubuntu'
   tags:
-    - install-dependencies
-
-- name: Inst - Distribution Dependencies
-  include_tasks: "{{ ansible_distribution|lower }}_{{ ansible_distribution_release }}.yml"
-  tags:
-    - install-dependencies
+    - consul-inst-dependencies
 
 - name: Inst - PIP Dependencies
   pip:
@@ -42,7 +40,7 @@
   git:
     repo: "https://github.com/tmux-plugins/tpm"
     dest: "/home/vagrant/.tmux/plugins/tpm"
-    accept_hostkey: True
+    accept_hostkey: true
   tags:
     - conf-tmux
 
@@ -68,7 +66,7 @@
   git:
     repo: "https://github.com/VundleVim/Vundle.vim.git"
     dest: "/home/vagrant/.vim/bundle/Vundle.vim"
-    accept_hostkey: True
+    accept_hostkey: true
   tags:
     - conf-vim
 

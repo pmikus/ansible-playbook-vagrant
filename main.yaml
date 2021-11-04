@@ -22,6 +22,8 @@
       tags: nomad
     - role: pmikus.consul
       tags: consul
+    - role: pmikus.samba
+      tags: samba
     - role: developer
       tags: developer
 

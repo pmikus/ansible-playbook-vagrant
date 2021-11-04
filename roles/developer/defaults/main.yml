@@ -10,6 +10,7 @@ packages_base:
   - "mc"
   - "openvpn"
   - "powerline"
+  - "sshpass"
   - "tmux"
   - "tree"
   - "vim"

@@ -27,3 +27,13 @@
     - role: developer
       tags: developer
 
+  tasks:
+    - name: Deploy terraform-nomad-minio
+      terraform:
+        force_init: true
+        init_reconfigure: true
+        overwrite_init: true
+        project_path: "/glacier/workspace/github.com/pmikus/terraform-nomad-minio/example"
+        state: "present"
+      tags:
+        - deploy-minio

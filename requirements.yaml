@@ -4,6 +4,8 @@
 roles:
   - name: "pmikus.docker"
     source: "https://galaxy.ansible.com"
+  - name: "pmikus.samba"
+    source: "https://galaxy.ansible.com"
   - name: "pmikus.nomad"
     source: "https://galaxy.ansible.com"
   - name: "pmikus.consul"

@@ -9,14 +9,12 @@ packages_base:
   - "golang-cfssl"
   - "mc"
   - "openvpn"
-  - "powerline"
   - "sshpass"
   - "tmux"
   - "tree"
   - "vim"
   - "wget"
   - "xsel"
-  - "zsh"
 
 packages_by_distro:
   ubuntu:
@@ -29,4 +27,3 @@ packages_by_distro:
 pip_packages:
   - "docker-compose"
   - "git-review"
-  - "git+git://github.com/Lokaltog/powerline"

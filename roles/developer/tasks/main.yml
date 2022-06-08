@@ -20,13 +20,6 @@
   tags:
     - install-pip-deps
 
-- name: Inst - Oh-My-Ssh
-  become_user: "vagrant"
-  raw: 'sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"'
-  failed_when: False
-  tags:
-    - install-zsh
-
 - name: Conf - Tmux
   become_user: "vagrant"
   get_url:
@@ -41,6 +34,7 @@
     repo: "https://github.com/tmux-plugins/tpm"
     dest: "/home/vagrant/.tmux/plugins/tpm"
     accept_hostkey: true
+    force: true
   tags:
     - conf-tmux
 
